@@ -1,7 +1,8 @@
-# include
-# math.h
+# include <stdio.h>
+# include <math.h> 
+
 int main(){
-    double h, f,x;
+    double h, f;
     printf("Enter h(0<=h&&h)\n");
     scanf("%lf",&h);
     if (h==0)
@@ -15,10 +16,10 @@ int main(){
     int i=0;
     do{
         double x=i*h;
-        if(x>=0&&x<=1)
-        f=B*pow(x,3)*cos(x);
+        if(x>=0&&x<=1/4)
+        f=exp(sin(x));
         else
-        f=log(1+sqrt(x))-cos(x);
+        f=exp(x)-sqrt(1/x);
         printf("%lf  %lf\n", x, f);
         i++;
     }while(i<=a);

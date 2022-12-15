@@ -1,8 +1,18 @@
 #include <stdio.h>
-#include <stdlib.h>
-#include <time.h>
-#include <math.h>
-int main()
-{int x;
-printf("%d\n", rand(x) % 9);}
-return 0;
+ 
+void prn(unsigned n) {
+    if ( n ) {
+        prn(n / 10);
+        printf("%c", n % 10 + '0');
+    }
+}
+ 
+int main(void) {
+    unsigned n;
+    
+    while ( printf("\nNumber: ") && scanf("%u", &n) == 1 && n && printf("By digits: ") )
+        prn(n);
+    
+    return 0;
+}
+

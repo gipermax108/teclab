@@ -10,7 +10,6 @@ double sqrt13(double a)
         b = -pow(fabs(a), 1.0 / 3.0);
     return b;
 }
-
 double Integral(long int n)
 {
     double f = 0.0f, x, h = 3.0f / n;
@@ -18,16 +17,16 @@ double Integral(long int n)
     {
         x = -2.0 + i * h + h / 2.0f;
         if (x <= 0)
-            f += x * x * sin(sqrt13(x) - 3);
+            f += exp(sin(x));
         else
-            f += sqrt(x) * cos(2 * x);
+            f += exp(x)-sqrt(1/x);
     }
     return f * h;
 }
 
 int main()
 {
-    double In, I2n, e, answer = 2.42417f;
+    double In, I2n, e, answer = 0.23431f;
     long int n = 1;
     printf("Введите точность -> ");
     scanf("%lf", &e);
