@@ -8,8 +8,8 @@ int main()
     scanf("%lf", &x);
     if (-1.0 <= x && x <= 1.0)
     {
-        double  y= log((1+x)/(1-x));
-        double  z=(y*y)/(1-y);
+        double  y= sqrt(sin(2*x))+sqrt(sin(3*x));
+        double  z=pow(log(tan( y - (M_PI / 8) ) ),1/4);
         printf("y(x) = %lf, z(y) = %lf\n", y, z);
     }
     else

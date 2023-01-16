@@ -2,44 +2,44 @@
 #include <stdlib.h>
 #include <time.h>
 
-void func_fill(int n, int m, int *a)
+void func_fill(int n, int m, int a[n][m])
 {
     for (int i = 0; i < n; i++)
         for(int j = 0; j < m; j++)
-            a[i * m + j] = rand() % 30 - 15;
+            a[i][j] = rand() % 40 - 20;
 }
 
-void print_matrix(int n, int m, int *a)
+void print_matrix(int n, int m, int a[n][m])
 {
     for (int i = 0; i < n; i++)
     {
         for (int j = 0; j < m; j++)
-            printf("% 5d ", a[i * m + j]);
+            printf("%d ", a[i][j]);
         printf("\n");
     }
 }
 
-void func_transpose(int n, int m, int *a, int *t)
+void func_transpose(int n, int m, int a[n][m], int t[m][n])
 {
     for (int i = 0; i < n; i++)
     {
         for (int j = 0; j < m; j++)
         {
-            t[j * n + i] = a[i * m + j];
+            t[j][i] = a[i][j];
         }
     }
 }
 
-void func_product(int n, int m, int *a, int *t, int *p)
+void func_product(int n, int m, int a[n][m], int t[m][n], int p[n][n])
 {
-    for (int i = 0; i < m; i++)
+    for (int i = 0; i < n; i++)
     {
-        for (int j = 0; j < m; j++)
+        for (int j = 0; j < n; j++)
         {
             int sum = 0;
-            for (int k = 0; k < n; k++)
-                sum += a[i * n + k] * t[k * m + j];
-            p[i * m + j] = sum;
+            for (int k = 0; k < m; k++)
+                sum += a[i][k] * t[k][j];
+            p[i][j] = sum;
         }
     }
 }
@@ -52,15 +52,9 @@ int main()
 
     srand(time(NULL));
 
-    int *a = malloc(n * m * sizeof(int));
-    int *t = malloc(m * n * sizeof(int));
-    int *p = malloc(n * n * sizeof(int));
-
-    if (NULL == p || NULL == a || NULL == t)
-    {
-        printf("Не удалось выделить память!\n");
-        exit(EXIT_FAILURE);
-    }
+    int a[n][m];
+    int t[m][n];
+    int p[n][n];
 
     func_fill(n, m, a);
     printf("Исходная матрица: \n");
@@ -73,10 +67,6 @@ int main()
     func_product(n, m, a, t, p);
     printf("Произведение матриц: \n");
     print_matrix(m, m, p);
-
-    free(a);
-    free(t);
-    free(p);
 
     return 0;
 }
