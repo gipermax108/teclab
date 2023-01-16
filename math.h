@@ -1,4 +1,3 @@
-
 // TODO: Need to update to C++11 proper so that I can store unions of complex types and remove
 //       all these function calls.
 
@@ -85,7 +84,6 @@ struct clcpp_attr(reflect) half4
 		T x, y;
 	};
 	"""
-
 	tuple3 = """
 	struct clcpp_attr(reflect) T3
 	{
@@ -99,7 +97,6 @@ struct clcpp_attr(reflect) half4
 		T x, y, z;
 	};
 	"""
-
 	tuple4 = """
 	struct clcpp_attr(reflect) T4
 	{
@@ -114,7 +111,6 @@ struct clcpp_attr(reflect) half4
 		T x, y, z, w;
 	};
 	"""
-
 	EmitRepl(tuple2, "T:" + vector_types)
 	EmitRepl(tuple3, "T:" + vector_types)
 	EmitRepl(tuple4, "T:" + vector_types)
