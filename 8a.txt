@@ -1,0 +1,69 @@
+Copy code
+#include <stdio.h>
+#include <stdbool.h>
+#include <termios.h>
+#include <unistd.h>
+
+// Функция для чтения символа без нажатия Enter
+char getch() 
+{
+    struct termios oldattr, newattr;
+    char ch;
+    tcgetattr(STDIN_FILENO, &oldattr);
+    newattr = oldattr;
+    newattr.c_lflag &= ~(ICANON | ECHO);
+    tcsetattr(STDIN_FILENO, TCSANOW, &newattr);
+    ch = getchar();
+    tcsetattr(STDIN_FILENO, TCSANOW, &oldattr);
+    return ch;
+}
+
+int main() 
+{
+    //printf("Нажмите клавишу End:\n");
+    //int key = getch();
+    //printf("Код клавиши: 0x%X\n", key);
+    char c;
+    bool is_float = true;
+    bool seen_decimal_point = false;
+    bool seen_digit = false;
+    printf("Введите последовательность символов:\n");
+    while ((c = getch()) != 0x23) // 0x23 - код клавиши End
+    { 
+        putchar(c);
+        switch (c) 
+        {
+        case '.':
+            if (seen_decimal_point) 
+            {
+                is_float = false;
+            }
+            else 
+            {
+                seen_decimal_point = true;
+            }
+            break;
+        case '0': case '1': case '2': case '3': case '4':
+        case '5': case '6': case '7': case '8': case '9':
+            seen_digit = true;
+            break;
+        default:
+            is_float = false;
+            break;
+        }
+        if (!is_float) 
+        {
+            break;
+        }
+    }
+    printf("\n");
+    if (is_float && seen_digit) 
+    {
+        printf("Верная запись вещественного числа\n");
+    }
+    else 
+    {
+        printf("Неверная запись вещественного числа\n");
+    }
+    return 0;
+}
